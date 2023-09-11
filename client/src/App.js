@@ -9,6 +9,7 @@ import { Header } from './components/Header'
 
 import './App.css'
 
+console.log(WS_URL)
 function App() {
   const [username, setUsername] = useState('')
   const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {

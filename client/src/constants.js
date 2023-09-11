@@ -1,1 +1,1 @@
-export const WS_URL = 'ws://127.0.0.1:8000'
+export const WS_URL = `ws://${process.env.REACT_APP_WEBSOCKET_URL}`
