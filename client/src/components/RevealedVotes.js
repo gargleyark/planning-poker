@@ -1,4 +1,4 @@
-import '../Chart.css'
+import './RevealedVotes.css'
 import { ResetButton } from './ResetButton'
 
 export function RevealedVotes({ votes }) {

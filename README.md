@@ -12,7 +12,7 @@ It probably works, but could do with typescript, tests, etc, and there's no node
 
 ![](./media/preview.png)
 
-## How to run the app?
+## How to run the app
 
 ```bash
 #-- Setup and start the server
@@ -25,6 +25,24 @@ cd client
 npm install # or yarn install
 npm start # or yarn start
 ```
+
+## How to deploy the app
+
+The server is all that is run on production, and serves a built version of the client.
+
+To build the client and then serve it from the server:
+
+```bash
+cd server
+npm install # or yarn install
+npm build # or yarn start
+
+cd ../client
+npm install # or yarn install
+npm start # or yarn start
+```
+
+You will now be able to visit the server directly and it will serve the built client
 
 ## Future features
 

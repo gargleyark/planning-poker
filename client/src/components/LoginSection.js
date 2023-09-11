@@ -15,7 +15,7 @@ export function LoginSection({ onLogin }) {
       setError('Username is required')
       return
     }
-    if (!username.match(/^[a-zA-Z0-9]+?[a-zA-Z]+[a-zA-Z0-9]+?$/)) {
+    if (!username.match(/^([a-zA-Z0-9]+)?[a-zA-Z]+([a-zA-Z0-9]+)?$/)) {
       setError('Username must be alphanumeric and contain at least one letter')
       return
     }

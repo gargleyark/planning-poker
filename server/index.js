@@ -1,23 +1,19 @@
 const { WebSocket, WebSocketServer } = require('ws')
-const fs = require('fs')
-const http = require('http')
 const uuidv4 = require('uuid').v4
+const express = require('express')
+const path = require('path')
+const app = express()
+const http = require('http').Server(app)
 
 // Spinning the http server and the WebSocket server.
-const server = http.createServer()
-const wsServer = new WebSocketServer({ server })
-const port = 8000
-const webPort = 3001
-// fs.readFile('../client/build/index.html', (err, html) => {
-//   if (err) {
-//     throw err
-//   }
-// })
-server.listen(port, () => {})
+const wsServer = new WebSocketServer({ server: http })
+const port = process.env.PORT || 8000
 
-// server.listen(webPort, function (req, res) {
-//   res.sendFile(, { root: __dirname })
-// })
+app.use(express.static(path.join(__dirname, 'build')))
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 
 // I'm maintaining all active connections in this object
 const clients = {}
@@ -37,10 +33,6 @@ const typesDef = {
   CONTENT_CHANGE: 'contentchange',
   VOTE_EVENT: 'voteMade',
   REVEAL_EVENT: 'revealVotes',
-}
-
-function sendVote({ points, userId }) {
-  votes[userId] = points
 }
 
 function broadcastMessage(json) {
@@ -133,4 +125,8 @@ wsServer.on('connection', function (connection) {
 
   // User disconnected
   connection.on('close', () => handleDisconnect(userId))
+})
+
+http.listen(port, function () {
+  console.log('listening on *:' + port)
 })

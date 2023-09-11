@@ -4,6 +4,7 @@ header {
   text-align: left;
   padding: 0 0 20px;
   display: flex;
+  padding: 10px;
   justify-content: space-between;
 }
 header h1 {
@@ -36,6 +37,21 @@ header p {
 }
 
 header > div {
-  padding-top: 18px;
-  padding-right: 20px;
+  padding-top: 6px;
+  padding-right: 6px;
+}
+
+.s0 {
+  fill: #886edd;
+}
+.s1 {
+  fill: #544098;
+}
+.s2 {
+  fill: #ffffff;
+}
+
+header svg {
+  height: 50px;
+  width: auto;
 }
