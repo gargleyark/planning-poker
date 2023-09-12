@@ -21,7 +21,7 @@ export function LoginSection({ onLogin }) {
       return
     }
     if (
-      Object.values(lastJsonMessage?.data?.users).find(
+      Object.values(lastJsonMessage?.data?.users || {}).find(
         ({ username: existingUser }) =>
           existingUser === username.trim().replace(/\s+/g, '-')
       )
