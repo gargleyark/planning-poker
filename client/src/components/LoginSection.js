@@ -7,6 +7,7 @@ export function LoginSection({ onLogin }) {
   const [error, setError] = useState(null)
   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
     share: true,
+    reconnectAttempts: 5,
   })
 
   function logInUser(e) {
@@ -15,19 +16,20 @@ export function LoginSection({ onLogin }) {
       setError('Username is required')
       return
     }
-    if (!username.match(/^([a-zA-Z0-9]+)?[a-zA-Z]+([a-zA-Z0-9]+)?$/)) {
-      setError('Username must be alphanumeric and contain at least one letter')
+    if (!username.match(/^[a-zA-Z\s]+$/)) {
+      setError('Usernames can only contain letters and spaces')
       return
     }
     if (
       Object.values(lastJsonMessage?.data?.users).find(
-        ({ username: existingUser }) => existingUser === username
+        ({ username: existingUser }) =>
+          existingUser === username.trim().replace(/\s+/g, '-')
       )
     ) {
       setError('Username is already taken')
       return
     }
-    onLogin && onLogin(username)
+    onLogin && onLogin(username.trim().replace(/\s+/g, '-'))
   }
 
   useEffect(() => {

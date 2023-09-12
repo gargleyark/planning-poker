@@ -16,6 +16,7 @@ export function Users() {
 
   return (
     <div className="currentusers">
+      <h4>Room: Coregi 🐶</h4>
       <h5>Connected Users</h5>
       <div>
         {users.map((user) => {

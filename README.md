@@ -53,6 +53,7 @@ Sans priorité
 - Link sharing (after routing)
 - Custom points/sizes
 - Suggest user name from previous session
+- Make the login page look better on mobile
 
 ## License
 
