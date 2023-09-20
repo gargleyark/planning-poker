@@ -4,21 +4,21 @@ import { WS_URL } from '../constants'
 
 export function LoginSection({ onLogin }) {
   const [username, setUsername] = useState('')
+  const [roomname, setRoomname] = useState('')
   const [error, setError] = useState(null)
   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
     share: true,
     reconnectAttempts: 5,
   })
 
-  function logInUser(e) {
-    e.preventDefault()
+  const isInvalidUsername = () => {
     if (!username.trim()) {
       setError('Username is required')
-      return
+      return true
     }
     if (!username.match(/^[a-zA-Z\s]+$/)) {
       setError('Usernames can only contain letters and spaces')
-      return
+      return true
     }
     if (
       Object.values(lastJsonMessage?.data?.users || {}).find(
@@ -27,9 +27,30 @@ export function LoginSection({ onLogin }) {
       )
     ) {
       setError('Username is already taken')
+      return true
+    }
+  }
+
+  const isInvalidRoomName = () => {
+    if (!roomname.trim()) {
+      setError('Room name is required')
+      return true
+    }
+  }
+
+  function logInUser(e) {
+    e.preventDefault()
+    if (isInvalidUsername()) {
       return
     }
-    onLogin && onLogin(username.trim().replace(/\s+/g, '-'))
+    if (isInvalidRoomName()) {
+      return
+    }
+    onLogin &&
+      onLogin(username.trim().replace(/\s+/g, '-'), {
+        name: roomname.trim(),
+        id: 'arb-zzy-fgn',
+      })
   }
 
   useEffect(() => {
@@ -53,12 +74,11 @@ export function LoginSection({ onLogin }) {
               onInput={(e) => setUsername(e.target.value)}
               className="form-control"
             />
-            <label htmlFor="roomName">Room ID</label>
+            <label htmlFor="roomName">Room name</label>
             <input
               name="roomName"
-              disabled
               className="form-control"
-              value="Coregi 🐶"
+              onInput={(e) => setRoomname(e.target.value)}
             />
             <div className="button-wrapper">
               <button type="submit" className="button-vote login">

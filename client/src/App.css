@@ -64,7 +64,6 @@ body {
   background-color: #fff;
   margin: 30px auto auto auto;
   padding: 50px 60px;
-  width: 500px;
 }
 .account__profile {
   text-align: center;
@@ -408,6 +407,10 @@ body {
 
   .history-holder {
     display: block;
+  }
+
+  .account__card {
+    width: 500px;
   }
 }
 

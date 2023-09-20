@@ -20,7 +20,7 @@ export function RevealedVotes({ votes }) {
   return (
     <section className="history">
       <h2>Votes</h2>
-      <ul class="chart">
+      <ul className="chart">
         {columnsWithValues.map((entry) => (
           <li>
             <span

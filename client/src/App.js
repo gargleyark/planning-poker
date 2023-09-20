@@ -11,6 +11,7 @@ import './App.css'
 
 function App() {
   const [username, setUsername] = useState('')
+  const [room, setRoom] = useState({})
   const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
     onOpen: () => {},
     share: true,
@@ -19,10 +20,15 @@ function App() {
     shouldReconnect: () => true,
   })
 
+  const login = (username, room) => {
+    setUsername(username)
+    setRoom(room)
+  }
+
   useEffect(() => {
     if (username && readyState === ReadyState.OPEN) {
       sendJsonMessage({
-        username,
+        content: { username, room },
         type: 'userevent',
       })
     }
@@ -36,7 +42,7 @@ function App() {
           {username ? (
             <MainSection username={username} />
           ) : (
-            <LoginSection onLogin={setUsername} />
+            <LoginSection onLogin={login} />
           )}
         </div>
       </div>

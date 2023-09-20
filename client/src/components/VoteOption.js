@@ -22,7 +22,7 @@ export function VoteOption({ value, username }) {
 
   return (
     <button
-      class="button-vote"
+      className="button-vote"
       role="button"
       onClick={handleButtonClick}
       style={(votes?.[username] === value && { background: '#E3FBFE' }) || {}}

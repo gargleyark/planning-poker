@@ -26,6 +26,7 @@ let userActivity = []
 // Votes are maintained here.
 let votes = {}
 let votesRevealed = false
+let rooms = {}
 
 // Event types
 const typesDef = {
@@ -58,8 +59,8 @@ function handleMessage(message, userId) {
 
   const json = { type: dataFromClient.type }
   if (dataFromClient.type === typesDef.USER_EVENT) {
-    users[userId] = dataFromClient
-    updateUserActivity(`${dataFromClient.username} joined`)
+    users[userId] = dataFromClient.content
+    updateUserActivity(`${dataFromClient.content.username} joined`)
 
     json.data = { votes, revealed: votesRevealed }
   } else if (dataFromClient.type === typesDef.CONTENT_CHANGE) {
